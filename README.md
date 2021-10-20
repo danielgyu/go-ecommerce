@@ -11,3 +11,5 @@ Typical user scenario:
 - View available products -> Product
 - Store products in cart -> Order
 - Order stored products -> Order, Customer
+
+This project uses gRPC & protocol buffers for data communication.

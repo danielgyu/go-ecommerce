@@ -1,0 +1,25 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "github.com/daenilgyu/go-ecommerce/internal/proto";
+
+service ProductService {
+    rpc GetProduct(ProductId) returns (Product) {}
+    rpc GetProducts(Empty) returns (AllProducts) {}
+}
+
+message Empty {}
+
+message ProductId {
+    int32 id = 1;
+}
+
+message Product {
+    int32 id = 1;
+    string name = 2;
+    int32 price = 3;
+}
+
+message AllProducts {
+    repeated Product products = 1;
+}
