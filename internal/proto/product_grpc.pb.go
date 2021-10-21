@@ -18,8 +18,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductServiceClient interface {
-	GetProduct(ctx context.Context, in *ProductId, opts ...grpc.CallOption) (*Product, error)
-	GetProducts(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllProducts, error)
+	GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error)
+	GetProducts(ctx context.Context, in *GetProductsRequest, opts ...grpc.CallOption) (*GetProductsResponse, error)
+	HealthCheck(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
 type productServiceClient struct {
@@ -30,8 +31,8 @@ func NewProductServiceClient(cc grpc.ClientConnInterface) ProductServiceClient {
 	return &productServiceClient{cc}
 }
 
-func (c *productServiceClient) GetProduct(ctx context.Context, in *ProductId, opts ...grpc.CallOption) (*Product, error) {
-	out := new(Product)
+func (c *productServiceClient) GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error) {
+	out := new(GetProductResponse)
 	err := c.cc.Invoke(ctx, "/proto.ProductService/GetProduct", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -39,9 +40,18 @@ func (c *productServiceClient) GetProduct(ctx context.Context, in *ProductId, op
 	return out, nil
 }
 
-func (c *productServiceClient) GetProducts(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*AllProducts, error) {
-	out := new(AllProducts)
+func (c *productServiceClient) GetProducts(ctx context.Context, in *GetProductsRequest, opts ...grpc.CallOption) (*GetProductsResponse, error) {
+	out := new(GetProductsResponse)
 	err := c.cc.Invoke(ctx, "/proto.ProductService/GetProducts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productServiceClient) HealthCheck(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+	out := new(HealthCheckResponse)
+	err := c.cc.Invoke(ctx, "/proto.ProductService/HealthCheck", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,8 +62,9 @@ func (c *productServiceClient) GetProducts(ctx context.Context, in *Empty, opts 
 // All implementations must embed UnimplementedProductServiceServer
 // for forward compatibility
 type ProductServiceServer interface {
-	GetProduct(context.Context, *ProductId) (*Product, error)
-	GetProducts(context.Context, *Empty) (*AllProducts, error)
+	GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error)
+	GetProducts(context.Context, *GetProductsRequest) (*GetProductsResponse, error)
+	HealthCheck(context.Context, *Empty) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -61,11 +72,14 @@ type ProductServiceServer interface {
 type UnimplementedProductServiceServer struct {
 }
 
-func (UnimplementedProductServiceServer) GetProduct(context.Context, *ProductId) (*Product, error) {
+func (UnimplementedProductServiceServer) GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProduct not implemented")
 }
-func (UnimplementedProductServiceServer) GetProducts(context.Context, *Empty) (*AllProducts, error) {
+func (UnimplementedProductServiceServer) GetProducts(context.Context, *GetProductsRequest) (*GetProductsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProducts not implemented")
+}
+func (UnimplementedProductServiceServer) HealthCheck(context.Context, *Empty) (*HealthCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}
 
@@ -81,7 +95,7 @@ func RegisterProductServiceServer(s grpc.ServiceRegistrar, srv ProductServiceSer
 }
 
 func _ProductService_GetProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ProductId)
+	in := new(GetProductRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -93,13 +107,13 @@ func _ProductService_GetProduct_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/proto.ProductService/GetProduct",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).GetProduct(ctx, req.(*ProductId))
+		return srv.(ProductServiceServer).GetProduct(ctx, req.(*GetProductRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ProductService_GetProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+	in := new(GetProductsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -111,7 +125,25 @@ func _ProductService_GetProducts_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: "/proto.ProductService/GetProducts",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).GetProducts(ctx, req.(*Empty))
+		return srv.(ProductServiceServer).GetProducts(ctx, req.(*GetProductsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProductService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServiceServer).HealthCheck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.ProductService/HealthCheck",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServiceServer).HealthCheck(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -130,6 +162,10 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProducts",
 			Handler:    _ProductService_GetProducts_Handler,
+		},
+		{
+			MethodName: "HealthCheck",
+			Handler:    _ProductService_HealthCheck_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
