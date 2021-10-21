@@ -23,14 +23,14 @@ message HealthCheckResponse {
     int32 statudCode = 1;
 }
 
-message GetProductRequest{
-    int32 id = 1;
-}
-
 message Product {
     int32 id = 1;
     string name = 2;
     int32 price = 3;
+}
+
+message GetProductRequest{
+    int32 id = 1;
 }
 
 message GetProductResponse {
