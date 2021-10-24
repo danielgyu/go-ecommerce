@@ -65,7 +65,7 @@ type HealthCheckResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	StatudCode int32 `protobuf:"varint,1,opt,name=statudCode,proto3" json:"statudCode,omitempty"`
+	StatusCode int32 `protobuf:"varint,1,opt,name=statusCode,proto3" json:"statusCode,omitempty"`
 }
 
 func (x *HealthCheckResponse) Reset() {
@@ -100,56 +100,9 @@ func (*HealthCheckResponse) Descriptor() ([]byte, []int) {
 	return file_internal_proto_product_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *HealthCheckResponse) GetStatudCode() int32 {
+func (x *HealthCheckResponse) GetStatusCode() int32 {
 	if x != nil {
-		return x.StatudCode
-	}
-	return 0
-}
-
-type GetProductRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *GetProductRequest) Reset() {
-	*x = GetProductRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_product_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetProductRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetProductRequest) ProtoMessage() {}
-
-func (x *GetProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_product_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetProductRequest.ProtoReflect.Descriptor instead.
-func (*GetProductRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_product_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *GetProductRequest) GetId() int32 {
-	if x != nil {
-		return x.Id
+		return x.StatusCode
 	}
 	return 0
 }
@@ -167,7 +120,7 @@ type Product struct {
 func (x *Product) Reset() {
 	*x = Product{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_product_proto_msgTypes[3]
+		mi := &file_internal_proto_product_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -180,7 +133,7 @@ func (x *Product) String() string {
 func (*Product) ProtoMessage() {}
 
 func (x *Product) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_product_proto_msgTypes[3]
+	mi := &file_internal_proto_product_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +146,7 @@ func (x *Product) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Product.ProtoReflect.Descriptor instead.
 func (*Product) Descriptor() ([]byte, []int) {
-	return file_internal_proto_product_proto_rawDescGZIP(), []int{3}
+	return file_internal_proto_product_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Product) GetId() int32 {
@@ -213,6 +166,53 @@ func (x *Product) GetName() string {
 func (x *Product) GetPrice() int32 {
 	if x != nil {
 		return x.Price
+	}
+	return 0
+}
+
+type GetProductRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GetProductRequest) Reset() {
+	*x = GetProductRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_internal_proto_product_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetProductRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProductRequest) ProtoMessage() {}
+
+func (x *GetProductRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_internal_proto_product_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProductRequest.ProtoReflect.Descriptor instead.
+func (*GetProductRequest) Descriptor() ([]byte, []int) {
+	return file_internal_proto_product_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetProductRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
 	}
 	return 0
 }
@@ -360,15 +360,15 @@ var file_internal_proto_product_proto_rawDesc = []byte{
 	0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x35, 0x0a, 0x13, 0x48, 0x65, 0x61,
 	0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x1e, 0x0a, 0x0a, 0x73, 0x74, 0x61, 0x74, 0x75, 0x64, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x74, 0x75, 0x64, 0x43, 0x6f, 0x64, 0x65,
-	0x22, 0x23, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x43, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
-	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64,
-	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
-	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x05, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x22, 0x3e, 0x0a, 0x12, 0x47, 0x65,
+	0x12, 0x1e, 0x0a, 0x0a, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x43, 0x6f, 0x64, 0x65,
+	0x22, 0x43, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
+	0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05,
+	0x70, 0x72, 0x69, 0x63, 0x65, 0x22, 0x23, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x3e, 0x0a, 0x12, 0x47, 0x65,
 	0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x12, 0x28, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x0b, 0x32, 0x0e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63,
@@ -415,16 +415,16 @@ var file_internal_proto_product_proto_msgTypes = make([]protoimpl.MessageInfo, 7
 var file_internal_proto_product_proto_goTypes = []interface{}{
 	(*Empty)(nil),               // 0: proto.Empty
 	(*HealthCheckResponse)(nil), // 1: proto.HealthCheckResponse
-	(*GetProductRequest)(nil),   // 2: proto.GetProductRequest
-	(*Product)(nil),             // 3: proto.Product
+	(*Product)(nil),             // 2: proto.Product
+	(*GetProductRequest)(nil),   // 3: proto.GetProductRequest
 	(*GetProductResponse)(nil),  // 4: proto.GetProductResponse
 	(*GetProductsRequest)(nil),  // 5: proto.GetProductsRequest
 	(*GetProductsResponse)(nil), // 6: proto.GetProductsResponse
 }
 var file_internal_proto_product_proto_depIdxs = []int32{
-	3, // 0: proto.GetProductResponse.product:type_name -> proto.Product
-	3, // 1: proto.GetProductsResponse.products:type_name -> proto.Product
-	2, // 2: proto.ProductService.GetProduct:input_type -> proto.GetProductRequest
+	2, // 0: proto.GetProductResponse.product:type_name -> proto.Product
+	2, // 1: proto.GetProductsResponse.products:type_name -> proto.Product
+	3, // 2: proto.ProductService.GetProduct:input_type -> proto.GetProductRequest
 	5, // 3: proto.ProductService.GetProducts:input_type -> proto.GetProductsRequest
 	0, // 4: proto.ProductService.HealthCheck:input_type -> proto.Empty
 	4, // 5: proto.ProductService.GetProduct:output_type -> proto.GetProductResponse
@@ -468,7 +468,7 @@ func file_internal_proto_product_proto_init() {
 			}
 		}
 		file_internal_proto_product_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductRequest); i {
+			switch v := v.(*Product); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -480,7 +480,7 @@ func file_internal_proto_product_proto_init() {
 			}
 		}
 		file_internal_proto_product_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Product); i {
+			switch v := v.(*GetProductRequest); i {
 			case 0:
 				return &v.state
 			case 1:

@@ -14,6 +14,10 @@ func NewProductHandler() *productsHandler {
 	return &productsHandler{}
 }
 
+func (h *productsHandler) HealthCheck(ctx context.Context, in pb.Empty) (out pb.HealthCheckResponse, err error) {
+	return pb.HealthCheckResponse{StatusCode: 200}, nil
+}
+
 func (h *productsHandler) GetProduct(ctx context.Context, in pb.GetProductRequest) (out pb.GetProductResponse, err error) {
 	productId := int(in.GetId())
 

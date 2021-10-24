@@ -20,7 +20,7 @@ service ProductService {
 message Empty {}
 
 message HealthCheckResponse {
-    int32 statudCode = 1;
+    int32 statusCode = 1;
 }
 
 message Product {
