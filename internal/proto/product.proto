@@ -9,6 +9,7 @@ option go_package = "github.com/daenilgyu/go-ecommerce/internal/proto";
 service ProductService {
     rpc GetProduct(GetProductRequest) returns (GetProductResponse) {}
     rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {}
+    rpc RegisterProduct(RegisterProductRequest) returns (RegisterProductResponse) {}
 
     rpc HealthCheck(Empty) returns (HealthCheckResponse) {
 	option (google.api.http) = {
@@ -27,6 +28,7 @@ message Product {
     int32 id = 1;
     string name = 2;
     int32 price = 3;
+    int32 stock = 4;
 }
 
 message GetProductRequest{
@@ -42,3 +44,12 @@ message GetProductsRequest {}
 message GetProductsResponse {
     repeated Product products = 1;
 }
+
+message RegisterProductRequest {
+    Product product = 1;    
+}
+
+message RegisterProductResponse {
+    Product product = 1;
+}
+
