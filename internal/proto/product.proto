@@ -50,6 +50,6 @@ message RegisterProductRequest {
 }
 
 message RegisterProductResponse {
-    Product product = 1;
+    int32 id = 1;
 }
 

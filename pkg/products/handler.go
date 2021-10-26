@@ -56,5 +56,10 @@ func (h *productsHandler) GetProducts(ctx context.Context, in *pb.GetProductsReq
 }
 
 func (h *productsHandler) RegisterProduct(ctx context.Context, in *pb.RegisterProductRequest) (out *pb.RegisterProductResponse, err error) {
-	return
+	id, err := h.repo.RegisterProduct(in.GetProduct())
+	if err != nil {
+		return &pb.RegisterProductResponse{}, err
+	}
+
+	return &pb.RegisterProductResponse{Id: int32(id)}, nil
 }
