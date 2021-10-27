@@ -1,4 +1,4 @@
-package products
+package product
 
 import (
 	"context"
@@ -30,7 +30,8 @@ func RunProductServer() {
 	p := flag.String("port", ":8000", "binded port number")
 
 	grpcProducts := grpc.NewServer()
-	pb.RegisterProductServiceServer(grpcProducts, NewProductHandler())
+	db := NewMysqlClient()
+	pb.RegisterProductServiceServer(grpcProducts, NewProductHandler(db))
 
 	httpMux := runtime.NewServeMux()
 	err := pb.RegisterProductServiceHandlerFromEndpoint(context.Background(), httpMux, *p, []grpc.DialOption{grpc.WithInsecure()})

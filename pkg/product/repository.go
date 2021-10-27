@@ -1,9 +1,7 @@
-package products
+package product
 
 import (
 	"database/sql"
-
-	pb "github.com/danielgyu/go-ecommerce/internal/proto"
 )
 
 type productsRepository struct {
@@ -21,7 +19,7 @@ type ProductDetail struct {
 	Stock int
 }
 
-func (r *productsRepository) GetProductDetail(productId int) (p pb.Product, err error) {
+func (r *productsRepository) GetProductDetail(productId int) (p ProductDetail, err error) {
 	var QueryOneProduct string = "SELECT * FROM products WHERE id = ?"
 
 	if err = r.database.QueryRow(QueryOneProduct, productId).Scan(&p.Id, &p.Name, &p.Price, &p.Stock); err != nil {
@@ -31,7 +29,7 @@ func (r *productsRepository) GetProductDetail(productId int) (p pb.Product, err 
 	return
 }
 
-func (r *productsRepository) GetProductList() (ps []pb.Product, err error) {
+func (r *productsRepository) GetProductList() (ps []ProductDetail, err error) {
 	var QueryAllProducts string = "SELECT * FROM products"
 
 	rows, err := r.database.Query(QueryAllProducts)
@@ -45,8 +43,8 @@ func (r *productsRepository) GetProductList() (ps []pb.Product, err error) {
 	}
 
 	for rows.Next() {
-		p := new(pb.Product)
-		if err := rows.Scan(p.Id, p.Name, p.Price, p.Stock); err != nil {
+		p := new(ProductDetail)
+		if err := rows.Scan(&p.Id, &p.Name, &p.Price, &p.Stock); err != nil {
 			return ps, err
 		}
 
@@ -56,10 +54,10 @@ func (r *productsRepository) GetProductList() (ps []pb.Product, err error) {
 	return
 }
 
-func (r *productsRepository) RegisterProduct(p *pb.Product) (id int64, err error) {
+func (r *productsRepository) RegisterProduct(name string, price int, stock int) (id int64, err error) {
 	var InsertProduct string = "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)"
 
-	result, err := r.database.Exec(InsertProduct)
+	result, err := r.database.Exec(InsertProduct, name, price, stock)
 	if err != nil {
 		return 0, err
 	}

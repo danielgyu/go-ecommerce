@@ -46,7 +46,9 @@ message GetProductsResponse {
 }
 
 message RegisterProductRequest {
-    Product product = 1;    
+    string name = 1;
+    int32 price = 2;
+    int32 stock = 3;
 }
 
 message RegisterProductResponse {
