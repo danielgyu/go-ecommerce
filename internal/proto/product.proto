@@ -11,14 +11,14 @@ service ProductService {
     rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {}
     rpc RegisterProduct(RegisterProductRequest) returns (RegisterProductResponse) {}
 
-    rpc HealthCheck(Empty) returns (HealthCheckResponse) {
+    rpc HealthCheck(HealCheckRequest) returns (HealthCheckResponse) {
 	option (google.api.http) = {
 	    get: "/v1/health"
 	};
     }
 }
 
-message Empty {}
+message HealCheckRequest {}
 
 message HealthCheckResponse {
     int32 statusCode = 1;

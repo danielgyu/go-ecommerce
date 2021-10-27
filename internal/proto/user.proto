@@ -1,0 +1,44 @@
+syntax = "proto3";
+package proto;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "internal/proto/product.proto";
+
+service UserService {
+    rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
+    rpc LogIn(LogInRequest) returns (LogInResponse) {}
+    rpc AddCredit(AddCreditRequest) returns (AddCreditResponse) {}
+    
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+	option (google.api.http) = {
+	    get: "/v1/health"
+	};
+    }
+}
+
+message SignUpRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message SignUpResponse {
+    bool success = 1;
+}
+
+message LogInRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LogInResponse {
+    string token = 1;    
+}
+
+message AddCreditRequest {
+    int64 credit = 1; 
+}
+
+message AddCreditResponse {
+    int64 credit = 1;
+}
