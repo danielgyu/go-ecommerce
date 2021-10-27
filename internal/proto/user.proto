@@ -5,6 +5,8 @@ import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "internal/proto/product.proto";
 
+option go_package = "github.com/danielgyu/go-ecommerce/internal/proto";
+
 service UserService {
     rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
     rpc LogIn(LogInRequest) returns (LogInResponse) {}
@@ -12,7 +14,7 @@ service UserService {
     
     rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
 	option (google.api.http) = {
-	    get: "/v1/health"
+	    get: "/user/health"
 	};
     }
 }

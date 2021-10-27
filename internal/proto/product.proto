@@ -4,21 +4,21 @@ package proto;
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 
-option go_package = "github.com/daenilgyu/go-ecommerce/internal/proto";
+option go_package = "github.com/danielgyu/go-ecommerce/internal/proto";
 
 service ProductService {
     rpc GetProduct(GetProductRequest) returns (GetProductResponse) {}
     rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {}
     rpc RegisterProduct(RegisterProductRequest) returns (RegisterProductResponse) {}
 
-    rpc HealthCheck(HealCheckRequest) returns (HealthCheckResponse) {
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
 	option (google.api.http) = {
-	    get: "/v1/health"
+	    get: "/product/health"
 	};
     }
 }
 
-message HealCheckRequest {}
+message HealthCheckRequest {}
 
 message HealthCheckResponse {
     int32 statusCode = 1;

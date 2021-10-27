@@ -21,7 +21,7 @@ type ProductServiceClient interface {
 	GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error)
 	GetProducts(ctx context.Context, in *GetProductsRequest, opts ...grpc.CallOption) (*GetProductsResponse, error)
 	RegisterProduct(ctx context.Context, in *RegisterProductRequest, opts ...grpc.CallOption) (*RegisterProductResponse, error)
-	HealthCheck(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
 type productServiceClient struct {
@@ -59,7 +59,7 @@ func (c *productServiceClient) RegisterProduct(ctx context.Context, in *Register
 	return out, nil
 }
 
-func (c *productServiceClient) HealthCheck(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+func (c *productServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	out := new(HealthCheckResponse)
 	err := c.cc.Invoke(ctx, "/proto.ProductService/HealthCheck", in, out, opts...)
 	if err != nil {
@@ -75,7 +75,7 @@ type ProductServiceServer interface {
 	GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error)
 	GetProducts(context.Context, *GetProductsRequest) (*GetProductsResponse, error)
 	RegisterProduct(context.Context, *RegisterProductRequest) (*RegisterProductResponse, error)
-	HealthCheck(context.Context, *Empty) (*HealthCheckResponse, error)
+	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -92,7 +92,7 @@ func (UnimplementedProductServiceServer) GetProducts(context.Context, *GetProduc
 func (UnimplementedProductServiceServer) RegisterProduct(context.Context, *RegisterProductRequest) (*RegisterProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterProduct not implemented")
 }
-func (UnimplementedProductServiceServer) HealthCheck(context.Context, *Empty) (*HealthCheckResponse, error) {
+func (UnimplementedProductServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}
@@ -163,7 +163,7 @@ func _ProductService_RegisterProduct_Handler(srv interface{}, ctx context.Contex
 }
 
 func _ProductService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+	in := new(HealthCheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -175,7 +175,7 @@ func _ProductService_HealthCheck_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: "/proto.ProductService/HealthCheck",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).HealthCheck(ctx, req.(*Empty))
+		return srv.(ProductServiceServer).HealthCheck(ctx, req.(*HealthCheckRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

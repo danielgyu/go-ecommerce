@@ -17,7 +17,7 @@ func NewProductHandler(db *sql.DB) *productsHandler {
 	return &productsHandler{repo: r}
 }
 
-func (h *productsHandler) HealthCheck(ctx context.Context, in *pb.Empty) (out *pb.HealthCheckResponse, err error) {
+func (h *productsHandler) HealthCheck(ctx context.Context, in *pb.HealthCheckRequest) (out *pb.HealthCheckResponse, err error) {
 	return &pb.HealthCheckResponse{StatusCode: 200}, nil
 }
 
