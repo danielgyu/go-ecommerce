@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"log"
 
 	pb "github.com/danielgyu/go-ecommerce/internal/proto"
@@ -13,12 +14,12 @@ import (
 type userHandler struct {
 	pb.UnimplementedUserServiceServer
 	repo    *userRepository
-	session map[int]string
+	session map[string]int
 }
 
 func NewUserHandler(db *sql.DB) *userHandler {
 	r := NewUserRepository(db)
-	s := make(map[int]string)
+	s := make(map[string]int)
 	return &userHandler{repo: r, session: s}
 }
 
@@ -47,11 +48,20 @@ func (h *userHandler) LogIn(ctx context.Context, in *pb.LogInRequest) (out *pb.L
 	}
 
 	sessionToken := uuid.New().String()
-	h.session[userId] = sessionToken
+	h.session[sessionToken] = userId
 
 	return &pb.LogInResponse{Token: sessionToken}, nil
 }
 
 func (h *userHandler) AddCredit(ctx context.Context, in *pb.AddCreditRequest) (out *pb.AddCreditResponse, err error) {
-	return
+	userId, isPresent := h.session[in.Token]
+	if !isPresent {
+		return &pb.AddCreditResponse{}, errors.New("log in first")
+	}
+	newCredit, err := h.repo.InsertCredit(userId, in.Credit)
+	if err != nil {
+		return &pb.AddCreditResponse{}, err
+	}
+
+	return &pb.AddCreditResponse{Credit: int64(newCredit)}, nil
 }

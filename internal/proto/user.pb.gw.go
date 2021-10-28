@@ -232,7 +232,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.UserService/HealthCheck", runtime.WithHTTPPathPattern("/v1/health"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.UserService/HealthCheck", runtime.WithHTTPPathPattern("/user/health"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -354,7 +354,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/proto.UserService/HealthCheck", runtime.WithHTTPPathPattern("/v1/health"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/proto.UserService/HealthCheck", runtime.WithHTTPPathPattern("/user/health"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -380,7 +380,7 @@ var (
 
 	pattern_UserService_AddCredit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.UserService", "AddCredit"}, ""))
 
-	pattern_UserService_HealthCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "health"}, ""))
+	pattern_UserService_HealthCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"user", "health"}, ""))
 )
 
 var (

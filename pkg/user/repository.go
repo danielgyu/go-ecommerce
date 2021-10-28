@@ -16,7 +16,7 @@ func NewUserRepository(db *sql.DB) *userRepository {
 }
 
 func (r *userRepository) RegisterUser(username string, hashedPw string) (err error) {
-	var InsertUser string = "INSERT INTO users (username, password) VALUES (? ?)"
+	var InsertUser string = "INSERT INTO users (username, password) VALUES (?, ?)"
 
 	res, err := r.database.Exec(InsertUser, username, hashedPw)
 	if err != nil {
@@ -41,9 +41,32 @@ func (r *userRepository) LogInUser(username string, password string) (userId int
 		return 0, err
 	}
 
-	if err = bcrypt.CompareHashAndPassword([]byte(password), []byte(hashedPw)); err != nil {
+	if err = bcrypt.CompareHashAndPassword([]byte(hashedPw), []byte(password)); err != nil {
 		return 0, err
 	}
 
 	return int(userId), nil
+}
+
+func (r *userRepository) InsertCredit(userId int, credit int64) (newCredit int, err error) {
+	var UpdateCredit string = "UPDATE users SET credit = credit + ? WHERE id = ?"
+
+	res, err := r.database.Exec(UpdateCredit, credit, userId)
+	if err != nil {
+		return 0, err
+	}
+
+	affected, err := res.RowsAffected()
+	if err != nil {
+		return 0, err
+	} else if affected == 0 {
+		return 0, errors.New("no affected rows")
+	}
+
+	var RetrieveCredit string = "SELECT credit FROM users WHERE id = ?"
+	if err = r.database.QueryRow(RetrieveCredit, userId).Scan(&newCredit); err != nil {
+		return 0, err
+	}
+
+	return
 }

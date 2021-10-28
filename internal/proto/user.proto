@@ -38,7 +38,8 @@ message LogInResponse {
 }
 
 message AddCreditRequest {
-    int64 credit = 1; 
+    string token = 1;
+    int64 credit = 2; 
 }
 
 message AddCreditResponse {
