@@ -1,0 +1,9 @@
+CREATE TABLE carts (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    user_id INTEGER NOT NULL
+);
+
+CREATE TABLE cart_products (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    product_id INTEGER NOT NULL
+);

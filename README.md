@@ -3,13 +3,12 @@
 Services:
 - Product
 - Order
-- Authentication
-- Customer
+- User
 
 Typical user scenario:
-- Logs in to service -> Authentication
+- Logs in to service -> User 
 - View available products -> Product
 - Store products in cart -> Order
-- Order stored products -> Order, Customer
+- Order stored products -> Order, User 
 
 This project uses gRPC & protocol buffers for data communication.
