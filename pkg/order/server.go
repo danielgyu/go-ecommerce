@@ -1,4 +1,4 @@
-package product
+package order
 
 import (
 	"context"
@@ -25,20 +25,20 @@ func allHandlers(grpcServer *grpc.Server, httpHandler http.Handler) http.Handler
 	}), &http2.Server{})
 }
 
-func RunProductServer() {
-	p := flag.String("port", ":8000", "binded port number")
+func RunOrderServer() {
+	p := flag.String("port", ":8002", "binded port number")
 
-	grpcProducts := grpc.NewServer()
+	grpcOrder := grpc.NewServer()
 	db := NewMysqlClient()
-	pb.RegisterProductServiceServer(grpcProducts, NewProductHandler(db))
+	pb.RegisterOrderServcieServer(grpcOrder, NewOrderHandler(db))
 
 	httpMux := runtime.NewServeMux()
-	err := pb.RegisterProductServiceHandlerFromEndpoint(context.Background(), httpMux, *p, []grpc.DialOption{grpc.WithInsecure()})
+	err := pb.RegisterOrderServcieHandlerFromEndpoint(context.Background(), httpMux, *p, []grpc.DialOption{grpc.WithInsecure()})
 	tl.Check(err)
 
 	mux := http.NewServeMux()
 
 	log.Printf("Running grpc server at port %s\n", *p)
-	err = http.ListenAndServe(*p, allHandlers(grpcProducts, mux))
+	err = http.ListenAndServe(*p, allHandlers(grpcOrder, mux))
 	tl.Check(err)
 }
