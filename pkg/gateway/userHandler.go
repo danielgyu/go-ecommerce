@@ -28,18 +28,14 @@ func (h *gatewayHandler) signUp(w http.ResponseWriter, r *http.Request) {
 	req := pb.SignUpRequest{}
 	err := jsonpb.Unmarshal(r.Body, &req)
 	if err != nil {
-		log.Println(err)
-		w.WriteHeader(404)
-		w.Write([]byte("request error"))
+		errorResponse(err, w)
 		return
 	}
 
 	ctx := context.Background()
 	res, err := h.clients.userClient.SignUp(ctx, &req)
 	if err != nil {
-		log.Println(err)
-		w.WriteHeader(404)
-		w.Write([]byte("grpc error"))
+		errorResponse(err, w)
 		return
 	}
 
@@ -52,18 +48,34 @@ func (h *gatewayHandler) logIn(w http.ResponseWriter, r *http.Request) {
 	req := pb.LogInRequest{}
 	err := jsonpb.Unmarshal(r.Body, &req)
 	if err != nil {
-		log.Println(err)
-		w.WriteHeader(404)
-		w.Write([]byte("request error"))
+		errorResponse(err, w)
 		return
 	}
 
 	ctx := context.Background()
 	res, err := h.clients.userClient.LogIn(ctx, &req)
 	if err != nil {
-		log.Println(err)
-		w.WriteHeader(404)
-		w.Write([]byte("grpc error"))
+		errorResponse(err, w)
+		return
+	}
+
+	json.NewEncoder(w).Encode(res)
+}
+
+func (h *gatewayHandler) getCredit(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	req := pb.GetCreditRequest{}
+	err := jsonpb.Unmarshal(r.Body, &req)
+	if err != nil {
+		errorResponse(err, w)
+		return
+	}
+
+	ctx := context.Background()
+	res, err := h.clients.userClient.GetCredit(ctx, &req)
+	if err != nil {
+		errorResponse(err, w)
 		return
 	}
 
@@ -76,18 +88,14 @@ func (h *gatewayHandler) addCredit(w http.ResponseWriter, r *http.Request) {
 	req := pb.AddCreditRequest{}
 	err := jsonpb.Unmarshal(r.Body, &req)
 	if err != nil {
-		log.Println(err)
-		w.WriteHeader(404)
-		w.Write([]byte("request error"))
+		errorResponse(err, w)
 		return
 	}
 
 	ctx := context.Background()
 	res, err := h.clients.userClient.AddCredit(ctx, &req)
 	if err != nil {
-		log.Println(err)
-		w.WriteHeader(404)
-		w.Write([]byte("grpc error"))
+		errorResponse(err, w)
 		return
 	}
 

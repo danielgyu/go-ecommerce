@@ -9,6 +9,7 @@ option go_package = "github.com/danielgyu/go-ecommerce/internal/proto";
 service UserService {
     rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
     rpc LogIn(LogInRequest) returns (LogInResponse) {}
+    rpc GetCredit(GetCreditRequest) returns (GetCreditResponse) {}
     rpc AddCredit(AddCreditRequest) returns (AddCreditResponse) {}
     
     rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
@@ -34,6 +35,15 @@ message LogInRequest {
 
 message LogInResponse {
     string token = 1;    
+}
+
+message GetCreditRequest {
+    string token = 1;
+}
+
+message GetCreditResponse {
+    int64 credit = 1;
+    int64 userId = 2;
 }
 
 message AddCreditRequest {

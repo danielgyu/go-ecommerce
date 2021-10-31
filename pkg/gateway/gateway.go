@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	"context"
 	"log"
 	"net/http"
 
@@ -33,10 +34,21 @@ func RunGateway() {
 func registerEndpoints(mux *http.ServeMux, h *gatewayHandler) {
 	mux.HandleFunc("/health", h.healthCheck)
 
-	mux.HandleFunc("/userhealth", h.userHealthCheck)
-	mux.HandleFunc("/user/addcredit", h.addCredit)
-	mux.HandleFunc("/user/login", h.logIn)
-	mux.HandleFunc("/user/signup", h.signUp)
+	mux.HandleFunc("/userhealth/", h.userHealthCheck)
+	mux.HandleFunc("/user/addcredit/", h.addCredit)
+	mux.HandleFunc("/user/getcredit/", h.getCredit)
+	mux.HandleFunc("/user/login/", h.logIn)
+	mux.HandleFunc("/user/signup/", h.signUp)
+
+	mux.HandleFunc("/producthealth/", h.productHealthCheck)
+	mux.HandleFunc("/product/all/", h.getProductList)
+	mux.HandleFunc("/product/detail/", h.getProduct)
+	mux.HandleFunc("/product/new/", h.registerProduct)
+
+	mux.HandleFunc("/orderhealth/", h.orderHealthCheck)
+	mux.HandleFunc("/order/new/", h.addToCart)
+	mux.HandleFunc("/order/purchase/", h.orderInCart)
+	mux.HandleFunc("/order/remove", h.removeFromCart)
 }
 
 func registerProductClient(gateway *grpcClients) {
@@ -46,6 +58,13 @@ func registerProductClient(gateway *grpcClients) {
 	}
 
 	c := pb.NewProductServiceClient(conn)
+
+	_, err = c.HealthCheck(context.Background(), &pb.HealthCheckRequest{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("product grpc server healthy and connected")
+
 	gateway.productClient = c
 }
 
@@ -56,6 +75,13 @@ func registerUserClient(gateway *grpcClients) {
 	}
 
 	c := pb.NewUserServiceClient(conn)
+
+	_, err = c.HealthCheck(context.Background(), &pb.HealthCheckRequest{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("user grpc server healthy and connected")
+
 	gateway.userClient = c
 }
 
@@ -66,5 +92,12 @@ func registerOrderClient(gateway *grpcClients) {
 	}
 
 	c := pb.NewOrderServcieClient(conn)
+
+	_, err = c.HealthCheck(context.Background(), &pb.HealthCheckRequest{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("order grpc server healthy and connected")
+
 	gateway.orderClient = c
 }

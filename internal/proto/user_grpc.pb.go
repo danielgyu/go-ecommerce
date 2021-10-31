@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type UserServiceClient interface {
 	SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResponse, error)
 	LogIn(ctx context.Context, in *LogInRequest, opts ...grpc.CallOption) (*LogInResponse, error)
+	GetCredit(ctx context.Context, in *GetCreditRequest, opts ...grpc.CallOption) (*GetCreditResponse, error)
 	AddCredit(ctx context.Context, in *AddCreditRequest, opts ...grpc.CallOption) (*AddCreditResponse, error)
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
@@ -50,6 +51,15 @@ func (c *userServiceClient) LogIn(ctx context.Context, in *LogInRequest, opts ..
 	return out, nil
 }
 
+func (c *userServiceClient) GetCredit(ctx context.Context, in *GetCreditRequest, opts ...grpc.CallOption) (*GetCreditResponse, error) {
+	out := new(GetCreditResponse)
+	err := c.cc.Invoke(ctx, "/proto.UserService/GetCredit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) AddCredit(ctx context.Context, in *AddCreditRequest, opts ...grpc.CallOption) (*AddCreditResponse, error) {
 	out := new(AddCreditResponse)
 	err := c.cc.Invoke(ctx, "/proto.UserService/AddCredit", in, out, opts...)
@@ -74,6 +84,7 @@ func (c *userServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequ
 type UserServiceServer interface {
 	SignUp(context.Context, *SignUpRequest) (*SignUpResponse, error)
 	LogIn(context.Context, *LogInRequest) (*LogInResponse, error)
+	GetCredit(context.Context, *GetCreditRequest) (*GetCreditResponse, error)
 	AddCredit(context.Context, *AddCreditRequest) (*AddCreditResponse, error)
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
@@ -88,6 +99,9 @@ func (UnimplementedUserServiceServer) SignUp(context.Context, *SignUpRequest) (*
 }
 func (UnimplementedUserServiceServer) LogIn(context.Context, *LogInRequest) (*LogInResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LogIn not implemented")
+}
+func (UnimplementedUserServiceServer) GetCredit(context.Context, *GetCreditRequest) (*GetCreditResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCredit not implemented")
 }
 func (UnimplementedUserServiceServer) AddCredit(context.Context, *AddCreditRequest) (*AddCreditResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddCredit not implemented")
@@ -144,6 +158,24 @@ func _UserService_LogIn_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetCredit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCreditRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetCredit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.UserService/GetCredit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetCredit(ctx, req.(*GetCreditRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_AddCredit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddCreditRequest)
 	if err := dec(in); err != nil {
@@ -194,6 +226,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LogIn",
 			Handler:    _UserService_LogIn_Handler,
+		},
+		{
+			MethodName: "GetCredit",
+			Handler:    _UserService_GetCredit_Handler,
 		},
 		{
 			MethodName: "AddCredit",

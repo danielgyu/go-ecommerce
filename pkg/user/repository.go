@@ -48,6 +48,16 @@ func (r *userRepository) LogInUser(username string, password string) (userId int
 	return int(userId), nil
 }
 
+func (r *userRepository) RetrieveCredit(userId int) (currentCredit int, err error) {
+	var SelectCredit string = "SELECT credit FROM users WHERE id = ?"
+
+	if err = r.database.QueryRow(SelectCredit, userId).Scan(&currentCredit); err != nil {
+		return 0, err
+	}
+
+	return currentCredit, nil
+}
+
 func (r *userRepository) InsertCredit(userId int, credit int64) (newCredit int, err error) {
 	var UpdateCredit string = "UPDATE users SET credit = credit + ? WHERE id = ?"
 

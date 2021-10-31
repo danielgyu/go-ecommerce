@@ -1,5 +1,6 @@
 CREATE TABLE carts (
-    id INTEGER PRIMARY KEY NOT NULL
+    id INTEGER PRIMARY KEY NOT NULL,
+    user_id INTEGER NOT NULL
 );
 
 CREATE TABLE cart_products (

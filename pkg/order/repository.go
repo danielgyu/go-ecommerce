@@ -61,7 +61,7 @@ func (r *orderRepository) DeleteInCart(ctx context.Context, cartId int64, produc
 }
 
 func (r *orderRepository) GetAllCartProducts(ctx context.Context, cartId int64) (productList []int64, err error) {
-	var GetProductsList = "SELECT product_id FROM cart_products WHERE cart_id = ?"
+	var GetProductsList = "SELECT product_id FROM cart_products p JOIN carts c ON  c.id = p.cart_id WHERE c.user_id = ?"
 
 	rows, err := r.database.Query(GetProductsList, cartId)
 	if err != nil {

@@ -53,6 +53,20 @@ func (h *userHandler) LogIn(ctx context.Context, in *pb.LogInRequest) (out *pb.L
 	return &pb.LogInResponse{Token: sessionToken}, nil
 }
 
+func (h *userHandler) GetCredit(ctx context.Context, in *pb.GetCreditRequest) (out *pb.GetCreditResponse, err error) {
+	userId, isPresent := h.session[in.Token]
+	if !isPresent {
+		return &pb.GetCreditResponse{}, errors.New("log in first")
+	}
+
+	credit, err := h.repo.RetrieveCredit(userId)
+	if err != nil {
+		return &pb.GetCreditResponse{}, err
+	}
+
+	return &pb.GetCreditResponse{Credit: int64(credit), UserId: int64(userId)}, nil
+}
+
 func (h *userHandler) AddCredit(ctx context.Context, in *pb.AddCreditRequest) (out *pb.AddCreditResponse, err error) {
 	userId, isPresent := h.session[in.Token]
 	if !isPresent {

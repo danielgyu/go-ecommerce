@@ -42,7 +42,7 @@ func (h *orderHandler) RemoveFromCart(ctx context.Context, in *pb.RemoveFromCart
 }
 
 func (h *orderHandler) OrderInCart(ctx context.Context, in *pb.OrderInCartRequest) (out *pb.OrderInCartResponse, err error) {
-	productList, err := h.repo.GetAllCartProducts(ctx, in.CartId)
+	productList, err := h.repo.GetAllCartProducts(ctx, in.UserId)
 	if err != nil {
 		log.Println("error retrieving product list")
 		return &pb.OrderInCartResponse{}, err
