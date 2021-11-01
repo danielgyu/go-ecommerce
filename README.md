@@ -21,7 +21,7 @@ This project uses gRPC & protocol buffers for data communication. Each service i
 # Highlight
 The intention of this project was to get an understading of using grpc & protocol buffers, and implement them in a microservice architecture. The overall structure follows the API Gateway pattern, which knows which endpoint of the available microservices to call for a given request. Here's an example.
 
-1. `/order/purchase` endpoint is called when the user wants to buy all the stored products in the user's cart
+1. `/order/purchase/` endpoint is called when the user wants to buy all the stored products in the user's cart
 2. When the requst is made, the gateway service would first call `GetCredit` rpc call to the user service to get the user id and the user's current credit
 3. Then it uses the user id to use the `OrderInCart` rpc call to get all the ids of the stored products of the users' cart
 4. After that, it uses the product ids to get the aggregate sum of all the products by calling `GetProduct`
