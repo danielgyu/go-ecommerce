@@ -1,5 +1,5 @@
 # A simple implementation of a micro-service architecture
-inspred by 
+Inspred and ideas taken from the following articles.
 - <https://www.cncf.io/blog/2021/07/19/think-grpc-when-you-are-architecting-modern-microservices/>
 - <https://microservices.io/patterns/data/database-per-service.html>
 
@@ -19,7 +19,7 @@ This project uses gRPC & protocol buffers for data communication. Each service i
 //image
 
 # Highlight
-The intention of this project was to get a grasp of using grpc & protocol buffers, and implement them as microservices. The overall structure follows the API Gateway pattern, which knows which endpoint of the available microservices to call for a given request. Here's an example.
+The intention of this project was to get an understading of using grpc & protocol buffers, and implement them in a microservice architecture. The overall structure follows the API Gateway pattern, which knows which endpoint of the available microservices to call for a given request. Here's an example.
 
 1. `/order/purchase` endpoint is called when the user wants to buy all the stored products in the user's cart
 2. When the requst is made, the gateway service would first call `GetCredit` rpc call to the user service to get the user id and the user's current credit
@@ -28,3 +28,4 @@ The intention of this project was to get a grasp of using grpc & protocol buffer
 5. Finally, it compares the users' current credit(gotten from step 2) and the aggregate sum to determine whether the user can make the purchase
 
 # How to Run
+[WIP] Docker compose
