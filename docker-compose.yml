@@ -1,18 +1,41 @@
 version: "3.9"
 services:
     gateway:
-        build: ./cmd/gateway/Dockerfile
+        build: 
+            context: ./
+            dockerfile: ./cmd/gateway/Dockerfile
         ports:
             - "8080:8080"
+        networks:
+            - gcommerce
+        depends_on:
+            - product-service
+            - user-service
+            - order-service
     product-service:
-        build: ./cmd/productServer/Dockerfile
+        build: 
+            context: ./
+            dockerfile: ./cmd/productServer/Dockerfile
         ports:
             - "8000:8000"
+        networks:
+            - gcommerce
     user-service:
-        build: ./cmd/userServer/Dockerfile
+        build: 
+            context: ./
+            dockerfile: ./cmd/userServer/Dockerfile
         ports:
             - "8001:8001"
+        networks:
+            - gcommerce
     order-service:
-        build: ./cmd/orderServer/Dockerfile
+        build: 
+            context: ./
+            dockerfile: ./cmd/orderServer/Dockerfile
         ports:
             - "8002:8002"
+        networks:
+            - gcommerce
+
+networks:
+    gcommerce:

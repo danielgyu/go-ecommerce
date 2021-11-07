@@ -37,6 +37,7 @@ func RunProductServer() {
 	tl.Check(err)
 
 	mux := http.NewServeMux()
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) { w.Write([]byte("healthy")) })
 
 	log.Printf("Running grpc server at port %s\n", *p)
 	err = http.ListenAndServe(*p, allHandlers(grpcProducts, mux))

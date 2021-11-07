@@ -52,7 +52,7 @@ func registerEndpoints(mux *http.ServeMux, h *gatewayHandler) {
 }
 
 func registerProductClient(gateway *grpcClients) {
-	conn, err := grpc.Dial(":8000", grpc.WithInsecure())
+	conn, err := grpc.Dial("localhost:8000", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,7 +69,7 @@ func registerProductClient(gateway *grpcClients) {
 }
 
 func registerUserClient(gateway *grpcClients) {
-	conn, err := grpc.Dial(":8001", grpc.WithInsecure())
+	conn, err := grpc.Dial("localhost:8001", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -86,7 +86,7 @@ func registerUserClient(gateway *grpcClients) {
 }
 
 func registerOrderClient(gateway *grpcClients) {
-	conn, err := grpc.Dial(":8002", grpc.WithInsecure())
+	conn, err := grpc.Dial("localhost:8002", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}

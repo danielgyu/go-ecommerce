@@ -9,7 +9,8 @@ RUN go mod download
 COPY . .
 
 RUN go build -o /dist/gateway ./cmd/gateway/main.go 
+RUN apk --no-cache add curl
 
 EXPOSE 8080
 
-CMD ["/dist/gateway"]
+CMD ["/app/wait_for_servers.sh", "/dist/gateway"]
