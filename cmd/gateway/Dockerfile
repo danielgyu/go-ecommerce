@@ -13,4 +13,4 @@ RUN apk --no-cache add curl
 
 EXPOSE 8080
 
-CMD ["/app/wait_for_servers.sh", "/dist/gateway"]
+CMD ["/app/healthcheck_then_start_gt.sh"]

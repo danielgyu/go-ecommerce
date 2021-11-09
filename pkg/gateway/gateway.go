@@ -33,6 +33,7 @@ func RunGateway() {
 
 func registerEndpoints(mux *http.ServeMux, h *gatewayHandler) {
 	mux.HandleFunc("/health", h.healthCheck)
+	mux.HandleFunc("/initdb", h.initializedb)
 
 	mux.HandleFunc("/userhealth/", h.userHealthCheck)
 	mux.HandleFunc("/user/addcredit/", h.addCredit)
@@ -52,7 +53,7 @@ func registerEndpoints(mux *http.ServeMux, h *gatewayHandler) {
 }
 
 func registerProductClient(gateway *grpcClients) {
-	conn, err := grpc.Dial("localhost:8000", grpc.WithInsecure())
+	conn, err := grpc.Dial("product-service:8000", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,7 +70,7 @@ func registerProductClient(gateway *grpcClients) {
 }
 
 func registerUserClient(gateway *grpcClients) {
-	conn, err := grpc.Dial("localhost:8001", grpc.WithInsecure())
+	conn, err := grpc.Dial("user-service:8001", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -86,7 +87,7 @@ func registerUserClient(gateway *grpcClients) {
 }
 
 func registerOrderClient(gateway *grpcClients) {
-	conn, err := grpc.Dial("localhost:8002", grpc.WithInsecure())
+	conn, err := grpc.Dial("order-service:8002", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
