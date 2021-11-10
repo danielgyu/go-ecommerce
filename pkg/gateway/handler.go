@@ -30,12 +30,13 @@ func (h *gatewayHandler) healthCheck(w http.ResponseWriter, r *http.Request) {
 
 func (h *gatewayHandler) initializedb(w http.ResponseWriter, r *http.Request) {
 	cfg := mysql.Config{
-		User:            "test",
-		Passwd:          "test",
-		Net:             "tcp",
-		Addr:            "golangdb:3306",
-		DBName:          "ecommerce",
-		MultiStatements: true,
+		User:                 "test",
+		Passwd:               "test",
+		Net:                  "tcp",
+		Addr:                 "golangdb:3306",
+		DBName:               "ecommerce",
+		AllowNativePasswords: true,
+		MultiStatements:      true,
 	}
 
 	db, err := sql.Open("mysql", cfg.FormatDSN())

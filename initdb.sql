@@ -25,3 +25,13 @@ CREATE TABLE IF NOT EXISTS products (
     stock INTEGER NOT NULL
 );
 
+INSERT INTO products (name, price, stock)
+VALUES 
+    ('ipad pro 1', 100, 10),
+    ('ipad pro 2', 200, 10),
+    ('ipad pro 3', 300, 10);
+    ('ipad pro 4', 400, 10);
+    ('ipad pro 5', 500, 10);
+    ('ipad pro 6', 600, 10);
+    ('ipad pro 7', 700, 10);
+    ('ipad pro 8', 800, 10);

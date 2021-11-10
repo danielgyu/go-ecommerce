@@ -27,5 +27,11 @@ The intention of this project was to get an understading of using grpc & protoco
 4. After that, it uses the product ids to get the aggregate sum of all the products by calling `GetProduct`
 5. Finally, it compares the users' current credit(gotten from step 2) and the aggregate sum to determine whether the user can make the purchase
 
-# How to Run
-[WIP] Docker compose
+# How to Run & usage scenario
+- `docker-compose build` then `up` to bring up service containers
+- send `localhost:8080/initdb` request to initialize database
+- signup `localhost:8080/signup/` include username and password in post request
+- login `localhost:8080/user/login/` same as signup, and remember the token
+- see products `localhost:8080/product/all/`, remember product ids in order to purchase them
+- add to cart `localhost:8080/order/new/`
+- purchase items in cart `localhost:8080/order/purchase`

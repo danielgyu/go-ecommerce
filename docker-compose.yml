@@ -21,6 +21,8 @@ services:
             - "8000:8000"
         networks:
             - gcommerce
+        depends_on:
+            - testdb
     user-service:
         build: 
             context: ./
@@ -29,6 +31,8 @@ services:
             - "8001:8001"
         networks:
             - gcommerce
+        depends_on:
+            - testdb
     order-service:
         build: 
             context: ./
@@ -37,6 +41,8 @@ services:
             - "8002:8002"
         networks:
             - gcommerce
+        depends_on:
+            - testdb
     testdb:
         image: mysql:5.7
         container_name: golangdb
