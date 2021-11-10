@@ -11,7 +11,7 @@ func NewMysqlClient() *sql.DB {
 	cfg := mysql.Config{
 		User:   "test",
 		Passwd: "test",
-		Addr:   "testdb:3306",
+		Addr:   "golangdb:3306",
 		DBName: "ecommerce",
 	}
 

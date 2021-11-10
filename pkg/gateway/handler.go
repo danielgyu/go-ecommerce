@@ -30,24 +30,29 @@ func (h *gatewayHandler) healthCheck(w http.ResponseWriter, r *http.Request) {
 
 func (h *gatewayHandler) initializedb(w http.ResponseWriter, r *http.Request) {
 	cfg := mysql.Config{
-		User:   "test",
-		Passwd: "test",
-		Addr:   "testdb:3306",
-		DBName: "ecommerce",
+		User:            "test",
+		Passwd:          "test",
+		Net:             "tcp",
+		Addr:            "golangdb:3306",
+		DBName:          "ecommerce",
+		MultiStatements: true,
 	}
 
 	db, err := sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
+		log.Println("error opening mysql")
 		log.Fatal(err)
 	}
 
 	init_script, iOerr := ioutil.ReadFile("./initdb.sql")
 	if iOerr != nil {
+		log.Println("error reading sql")
 		log.Fatal(err)
 	}
 
 	_, err = db.Exec(string(init_script))
 	if err != nil {
+		log.Println("error executing sql statement")
 		log.Fatal(err)
 	}
 

@@ -12,7 +12,7 @@ func NewMysqlClient() *sql.DB {
 		User:   "test",
 		Passwd: "test",
 		Net:    "tcp",
-		Addr:   "127.0.0.1:3306",
+		Addr:   "golangdb:3306",
 		DBName: "ecommerce",
 	}
 
