@@ -39,7 +39,14 @@ func (h *gatewayHandler) signUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(res)
+	oReq := pb.RegisterUserCartRequest{UserId: res.UserId}
+	oRes, err := h.clients.orderClient.RegisterUserCart(ctx, &oReq)
+	if err != nil {
+		errorResponse(err, w)
+		return
+	}
+
+	json.NewEncoder(w).Encode(oRes)
 }
 
 func (h *gatewayHandler) logIn(w http.ResponseWriter, r *http.Request) {

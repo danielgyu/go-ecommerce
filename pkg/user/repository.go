@@ -15,22 +15,20 @@ func NewUserRepository(db *sql.DB) *userRepository {
 	return &userRepository{database: db}
 }
 
-func (r *userRepository) RegisterUser(username string, hashedPw string) (err error) {
+func (r *userRepository) RegisterUser(username string, hashedPw string) (userId int64, err error) {
 	var InsertUser string = "INSERT INTO users (username, password) VALUES (?, ?)"
 
 	res, err := r.database.Exec(InsertUser, username, hashedPw)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	affected, err := res.RowsAffected()
+	userId, err = res.LastInsertId()
 	if err != nil {
-		return err
-	} else if affected == 0 {
-		return errors.New("falied to register user")
+		return 0, err
 	}
 
-	return
+	return userId, err
 }
 
 func (r *userRepository) LogInUser(username string, password string) (userId int, err error) {

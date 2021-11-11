@@ -3,6 +3,7 @@ package order
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"log"
 
 	pb "github.com/danielgyu/go-ecommerce/internal/proto"
@@ -20,6 +21,17 @@ func NewOrderHandler(db *sql.DB) *orderHandler {
 
 func (h *orderHandler) HealthCheck(ctx context.Context, in *pb.HealthCheckRequest) (out *pb.HealthCheckResponse, err error) {
 	return &pb.HealthCheckResponse{StatusCode: 200}, nil
+}
+
+func (h *orderHandler) RegisterUserCart(ctx context.Context, in *pb.RegisterUserCartRequest) (out *pb.RegisterUserCartResponse, err error) {
+	added, err := h.repo.AddNewCart(ctx, in.UserId)
+	if err != nil {
+		return &pb.RegisterUserCartResponse{}, err
+	} else if added == false {
+		return &pb.RegisterUserCartResponse{}, errors.New("failed to add cart")
+	}
+
+	return &pb.RegisterUserCartResponse{Success: true}, nil
 }
 
 func (h *orderHandler) AddToCart(ctx context.Context, in *pb.AddToCartRequest) (out *pb.AddToCartResponse, err error) {

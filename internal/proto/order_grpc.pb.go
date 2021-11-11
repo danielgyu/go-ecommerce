@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderServcieClient interface {
+	RegisterUserCart(ctx context.Context, in *RegisterUserCartRequest, opts ...grpc.CallOption) (*RegisterUserCartResponse, error)
 	AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*AddToCartResponse, error)
 	RemoveFromCart(ctx context.Context, in *RemoveFromCartRequest, opts ...grpc.CallOption) (*RemoveFromCartResponse, error)
 	OrderInCart(ctx context.Context, in *OrderInCartRequest, opts ...grpc.CallOption) (*OrderInCartResponse, error)
@@ -30,6 +31,15 @@ type orderServcieClient struct {
 
 func NewOrderServcieClient(cc grpc.ClientConnInterface) OrderServcieClient {
 	return &orderServcieClient{cc}
+}
+
+func (c *orderServcieClient) RegisterUserCart(ctx context.Context, in *RegisterUserCartRequest, opts ...grpc.CallOption) (*RegisterUserCartResponse, error) {
+	out := new(RegisterUserCartResponse)
+	err := c.cc.Invoke(ctx, "/proto.OrderServcie/RegisterUserCart", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *orderServcieClient) AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*AddToCartResponse, error) {
@@ -72,6 +82,7 @@ func (c *orderServcieClient) HealthCheck(ctx context.Context, in *HealthCheckReq
 // All implementations must embed UnimplementedOrderServcieServer
 // for forward compatibility
 type OrderServcieServer interface {
+	RegisterUserCart(context.Context, *RegisterUserCartRequest) (*RegisterUserCartResponse, error)
 	AddToCart(context.Context, *AddToCartRequest) (*AddToCartResponse, error)
 	RemoveFromCart(context.Context, *RemoveFromCartRequest) (*RemoveFromCartResponse, error)
 	OrderInCart(context.Context, *OrderInCartRequest) (*OrderInCartResponse, error)
@@ -83,6 +94,9 @@ type OrderServcieServer interface {
 type UnimplementedOrderServcieServer struct {
 }
 
+func (UnimplementedOrderServcieServer) RegisterUserCart(context.Context, *RegisterUserCartRequest) (*RegisterUserCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterUserCart not implemented")
+}
 func (UnimplementedOrderServcieServer) AddToCart(context.Context, *AddToCartRequest) (*AddToCartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddToCart not implemented")
 }
@@ -106,6 +120,24 @@ type UnsafeOrderServcieServer interface {
 
 func RegisterOrderServcieServer(s grpc.ServiceRegistrar, srv OrderServcieServer) {
 	s.RegisterService(&OrderServcie_ServiceDesc, srv)
+}
+
+func _OrderServcie_RegisterUserCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterUserCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServcieServer).RegisterUserCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.OrderServcie/RegisterUserCart",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServcieServer).RegisterUserCart(ctx, req.(*RegisterUserCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _OrderServcie_AddToCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -187,6 +219,10 @@ var OrderServcie_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.OrderServcie",
 	HandlerType: (*OrderServcieServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "RegisterUserCart",
+			Handler:    _OrderServcie_RegisterUserCart_Handler,
+		},
 		{
 			MethodName: "AddToCart",
 			Handler:    _OrderServcie_AddToCart_Handler,

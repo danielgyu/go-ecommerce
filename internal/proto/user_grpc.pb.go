@@ -22,6 +22,7 @@ type UserServiceClient interface {
 	LogIn(ctx context.Context, in *LogInRequest, opts ...grpc.CallOption) (*LogInResponse, error)
 	GetCredit(ctx context.Context, in *GetCreditRequest, opts ...grpc.CallOption) (*GetCreditResponse, error)
 	AddCredit(ctx context.Context, in *AddCreditRequest, opts ...grpc.CallOption) (*AddCreditResponse, error)
+	GetUserId(ctx context.Context, in *GetUserIdRequest, opts ...grpc.CallOption) (*GetUserIdResponse, error)
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
@@ -69,6 +70,15 @@ func (c *userServiceClient) AddCredit(ctx context.Context, in *AddCreditRequest,
 	return out, nil
 }
 
+func (c *userServiceClient) GetUserId(ctx context.Context, in *GetUserIdRequest, opts ...grpc.CallOption) (*GetUserIdResponse, error) {
+	out := new(GetUserIdResponse)
+	err := c.cc.Invoke(ctx, "/proto.UserService/GetUserId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	out := new(HealthCheckResponse)
 	err := c.cc.Invoke(ctx, "/proto.UserService/HealthCheck", in, out, opts...)
@@ -86,6 +96,7 @@ type UserServiceServer interface {
 	LogIn(context.Context, *LogInRequest) (*LogInResponse, error)
 	GetCredit(context.Context, *GetCreditRequest) (*GetCreditResponse, error)
 	AddCredit(context.Context, *AddCreditRequest) (*AddCreditResponse, error)
+	GetUserId(context.Context, *GetUserIdRequest) (*GetUserIdResponse, error)
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
@@ -105,6 +116,9 @@ func (UnimplementedUserServiceServer) GetCredit(context.Context, *GetCreditReque
 }
 func (UnimplementedUserServiceServer) AddCredit(context.Context, *AddCreditRequest) (*AddCreditResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddCredit not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserId(context.Context, *GetUserIdRequest) (*GetUserIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserId not implemented")
 }
 func (UnimplementedUserServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
@@ -194,6 +208,24 @@ func _UserService_AddCredit_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.UserService/GetUserId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserId(ctx, req.(*GetUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HealthCheckRequest)
 	if err := dec(in); err != nil {
@@ -234,6 +266,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddCredit",
 			Handler:    _UserService_AddCredit_Handler,
+		},
+		{
+			MethodName: "GetUserId",
+			Handler:    _UserService_GetUserId_Handler,
 		},
 		{
 			MethodName: "HealthCheck",

@@ -11,6 +11,7 @@ service UserService {
     rpc LogIn(LogInRequest) returns (LogInResponse) {}
     rpc GetCredit(GetCreditRequest) returns (GetCreditResponse) {}
     rpc AddCredit(AddCreditRequest) returns (AddCreditResponse) {}
+    rpc GetUserId(GetUserIdRequest) returns (GetUserIdResponse) {}
     
     rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
 	option (google.api.http) = {
@@ -25,7 +26,7 @@ message SignUpRequest {
 }
 
 message SignUpResponse {
-    bool success = 1;
+    int64 userId = 1;
 }
 
 message LogInRequest {
@@ -53,4 +54,12 @@ message AddCreditRequest {
 
 message AddCreditResponse {
     int64 credit = 1;
+}
+
+message GetUserIdRequest{
+    string token = 1;
+}
+
+message GetUserIdResponse {
+    int64 userId = 1;
 }

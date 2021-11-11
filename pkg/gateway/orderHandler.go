@@ -3,6 +3,7 @@ package gateway
 import (
 	"context"
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -24,11 +25,34 @@ func (h *gatewayHandler) orderHealthCheck(w http.ResponseWriter, r *http.Request
 
 func (h *gatewayHandler) addToCart(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-
-	req := pb.AddToCartRequest{}
-
 	ctx := context.Background()
-	res, err := h.clients.orderClient.AddToCart(ctx, &req)
+
+	type AddToCart struct {
+		token      string
+		productIds []int64
+	}
+
+	req := AddToCart{}
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		errorResponse(err, w)
+		return
+	}
+	err = json.Unmarshal(body, &req)
+	if err != nil {
+		errorResponse(err, w)
+		return
+	}
+
+	uReq := pb.GetUserIdRequest{Token: req.token}
+	if err != nil {
+		errorResponse(err, w)
+		return
+	}
+	uRes, err := h.clients.userClient.GetUserId(ctx, &uReq)
+
+	cReq := pb.AddToCartRequest{UserId: uRes.UserId, ProductIds: req.productIds}
+	res, err := h.clients.orderClient.AddToCart(ctx, &cReq)
 	if err != nil {
 		errorResponse(err, w)
 		return
