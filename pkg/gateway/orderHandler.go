@@ -46,8 +46,6 @@ func (h *gatewayHandler) addToCart(w http.ResponseWriter, r *http.Request) {
 
 	uReq := pb.GetUserIdRequest{Token: req.Token}
 	uRes, err := h.clients.userClient.GetUserId(ctx, &uReq)
-	log.Println("Get userid response:")
-	log.Println(uRes)
 
 	cReq := pb.AddToCartRequest{UserId: uRes.UserId, ProductIds: req.ProductIds}
 	res, err := h.clients.orderClient.AddToCart(ctx, &cReq)

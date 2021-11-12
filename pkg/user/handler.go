@@ -83,8 +83,6 @@ func (h *userHandler) AddCredit(ctx context.Context, in *pb.AddCreditRequest) (o
 }
 
 func (h *userHandler) GetUserId(ctx context.Context, in *pb.GetUserIdRequest) (out *pb.GetUserIdResponse, err error) {
-	log.Println("current session:", h.session)
-
 	userId, isPresent := h.session[in.Token]
 	if !isPresent {
 		return &pb.GetUserIdResponse{}, errors.New("log in first")

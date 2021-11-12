@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "b82063cf-90c9-4181-916b-4570ca43b24a",
+		"name": "go-ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/initdb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/initdb",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"initdb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/user/signup/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test001\",\n    \"password\": \"test001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/signup/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"signup",
+						""
+					]
+				},
+				"description": "username\npassword"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/user/login/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test001\",\n    \"password\": \"test001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/login/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login",
+						""
+					]
+				},
+				"description": "username\npassword"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/product/all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/product/detail/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/detail/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"detail",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/order/new/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"800724de-c8d0-45e5-bbd6-88f737c7ab09\",\n    \"productIds\": [4, 5]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/order/new/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"new",
+						""
+					]
+				},
+				"description": "token\nproductIds"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/order/purchase/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"800724de-c8d0-45e5-bbd6-88f737c7ab09\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/order/purchase/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"purchase",
+						""
+					]
+				},
+				"description": "token"
+			},
+			"response": []
+		}
+	]
+}

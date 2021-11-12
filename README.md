@@ -16,7 +16,7 @@ Inspred and ideas taken from the following articles.
 
 This project uses gRPC & protocol buffers for data communication. Each service is intended to work as a microservice with an gateway orchestrating in front of them.
 
-//image
+![architecture](./components.jpeg?raw=true "architecture")
 
 # Highlight
 The intention of this project was to get an understading of using grpc & protocol buffers, and implement them in a microservice architecture. The overall structure follows the API Gateway pattern, which knows which endpoint of the available microservices to call for a given request. Here's an example.
@@ -33,5 +33,6 @@ The intention of this project was to get an understading of using grpc & protoco
 - signup `localhost:8080/signup/` include username and password in post request
 - login `localhost:8080/user/login/` same as signup, and remember the token
 - see products `localhost:8080/product/all/`, remember product ids in order to purchase them
-- add to cart `localhost:8080/order/new/`
-- purchase items in cart `localhost:8080/order/purchase`
+- add to cart `localhost:8080/order/new/`, include token and productIds
+- purchase items in cart `localhost:8080/order/purchase`, include token, the resopnse will tell if you have enough credit to buy all the stored products
+- a sample walkthrough can be imported by using postman's collection json file
