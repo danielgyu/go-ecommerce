@@ -3,7 +3,6 @@ package order
 import (
 	"context"
 	"database/sql"
-	"errors"
 	"log"
 
 	pb "github.com/danielgyu/go-ecommerce/internal/proto"
@@ -23,19 +22,8 @@ func (h *orderHandler) HealthCheck(ctx context.Context, in *pb.HealthCheckReques
 	return &pb.HealthCheckResponse{StatusCode: 200}, nil
 }
 
-func (h *orderHandler) RegisterUserCart(ctx context.Context, in *pb.RegisterUserCartRequest) (out *pb.RegisterUserCartResponse, err error) {
-	added, err := h.repo.AddNewCart(ctx, in.UserId)
-	if err != nil {
-		return &pb.RegisterUserCartResponse{}, err
-	} else if added == false {
-		return &pb.RegisterUserCartResponse{}, errors.New("failed to add cart")
-	}
-
-	return &pb.RegisterUserCartResponse{Success: true}, nil
-}
-
 func (h *orderHandler) AddToCart(ctx context.Context, in *pb.AddToCartRequest) (out *pb.AddToCartResponse, err error) {
-	added, err := h.repo.PutIntoCart(ctx, in.CartId, in.ProductIds)
+	added, err := h.repo.PutIntoCart(ctx, in.UserId, in.ProductIds)
 	if err != nil {
 		return &pb.AddToCartResponse{}, err
 	}
@@ -44,7 +32,7 @@ func (h *orderHandler) AddToCart(ctx context.Context, in *pb.AddToCartRequest) (
 }
 
 func (h *orderHandler) RemoveFromCart(ctx context.Context, in *pb.RemoveFromCartRequest) (out *pb.RemoveFromCartResponse, err error) {
-	deleted, err := h.repo.DeleteInCart(ctx, in.CartId, in.ProductId)
+	deleted, err := h.repo.DeleteInCart(ctx, in.UserId, in.ProductId)
 	if err != nil {
 		log.Println("error while removing from cart")
 		return &pb.RemoveFromCartResponse{}, err

@@ -33,12 +33,12 @@ func (h *userHandler) SignUp(ctx context.Context, in *pb.SignUpRequest) (out *pb
 		return &pb.SignUpResponse{}, err
 	}
 
-	userId, err := h.repo.RegisterUser(in.Username, string(hashedPw))
+	success, err := h.repo.RegisterUser(in.Username, string(hashedPw))
 	if err != nil {
 		log.Printf("signup error %v\n", err)
 		return &pb.SignUpResponse{}, err
 	}
-	return &pb.SignUpResponse{UserId: userId}, nil
+	return &pb.SignUpResponse{Success: success}, nil
 }
 
 func (h *userHandler) LogIn(ctx context.Context, in *pb.LogInRequest) (out *pb.LogInResponse, err error) {
@@ -49,6 +49,8 @@ func (h *userHandler) LogIn(ctx context.Context, in *pb.LogInRequest) (out *pb.L
 
 	sessionToken := uuid.New().String()
 	h.session[sessionToken] = userId
+
+	log.Println("session after login:", h.session)
 
 	return &pb.LogInResponse{Token: sessionToken}, nil
 }
@@ -80,7 +82,9 @@ func (h *userHandler) AddCredit(ctx context.Context, in *pb.AddCreditRequest) (o
 	return &pb.AddCreditResponse{Credit: int64(newCredit)}, nil
 }
 
-func (h *userHandler) GetUserid(ctx context.Context, in *pb.GetUserIdRequest) (out *pb.GetUserIdResponse, err error) {
+func (h *userHandler) GetUserId(ctx context.Context, in *pb.GetUserIdRequest) (out *pb.GetUserIdResponse, err error) {
+	log.Println("current session:", h.session)
+
 	userId, isPresent := h.session[in.Token]
 	if !isPresent {
 		return &pb.GetUserIdResponse{}, errors.New("log in first")

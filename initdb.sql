@@ -1,3 +1,5 @@
+DROP DATABASE ecommerce;
+CREATE DATABASE ecommerce;
 use ecommerce;
 
 CREATE TABLE IF NOT EXISTS cart_products (

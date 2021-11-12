@@ -28,8 +28,8 @@ func (h *gatewayHandler) addToCart(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 
 	type AddToCart struct {
-		token      string
-		productIds []int64
+		Token      string  `json:"token"`
+		ProductIds []int64 `json:"productIds"`
 	}
 
 	req := AddToCart{}
@@ -44,14 +44,12 @@ func (h *gatewayHandler) addToCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	uReq := pb.GetUserIdRequest{Token: req.token}
-	if err != nil {
-		errorResponse(err, w)
-		return
-	}
+	uReq := pb.GetUserIdRequest{Token: req.Token}
 	uRes, err := h.clients.userClient.GetUserId(ctx, &uReq)
+	log.Println("Get userid response:")
+	log.Println(uRes)
 
-	cReq := pb.AddToCartRequest{UserId: uRes.UserId, ProductIds: req.productIds}
+	cReq := pb.AddToCartRequest{UserId: uRes.UserId, ProductIds: req.ProductIds}
 	res, err := h.clients.orderClient.AddToCart(ctx, &cReq)
 	if err != nil {
 		errorResponse(err, w)

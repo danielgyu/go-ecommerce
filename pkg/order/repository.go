@@ -32,8 +32,8 @@ func (r *orderRepository) AddNewCart(ctx context.Context, userId int64) (added b
 	return true, nil
 }
 
-func (r *orderRepository) PutIntoCart(ctx context.Context, cartId int64, productIds []int64) (affected int64, err error) {
-	var InsertToCart string = "INSERT INTO cart_products (cart_id, product_id) VALUES (?, ?)"
+func (r *orderRepository) PutIntoCart(ctx context.Context, userId int64, productIds []int64) (affected int64, err error) {
+	var InsertToCart string = "INSERT INTO cart_products (user_id, product_id) VALUES (?, ?)"
 
 	tx, err := r.database.BeginTx(ctx, nil)
 	if err != nil {
@@ -43,7 +43,7 @@ func (r *orderRepository) PutIntoCart(ctx context.Context, cartId int64, product
 	defer tx.Rollback()
 
 	for _, p := range productIds {
-		res, err := r.database.Exec(InsertToCart, cartId, p)
+		res, err := r.database.Exec(InsertToCart, userId, p)
 		if err != nil {
 			return 0, err
 		}
@@ -62,10 +62,10 @@ func (r *orderRepository) PutIntoCart(ctx context.Context, cartId int64, product
 	return affected, nil
 }
 
-func (r *orderRepository) DeleteInCart(ctx context.Context, cartId int64, productId int64) (deleted int64, err error) {
-	var DeleteProduct = "DELETE FROM cart_products WHERE cart_id = ? and product_id = ?"
+func (r *orderRepository) DeleteInCart(ctx context.Context, userId int64, productId int64) (deleted int64, err error) {
+	var DeleteProduct = "DELETE FROM cart_products WHERE user_id = ? and product_id = ?"
 
-	res, err := r.database.Exec(DeleteProduct, cartId, productId)
+	res, err := r.database.Exec(DeleteProduct, userId, productId)
 	if err != nil {
 		return 0, err
 	}
@@ -78,10 +78,10 @@ func (r *orderRepository) DeleteInCart(ctx context.Context, cartId int64, produc
 	return deleted, nil
 }
 
-func (r *orderRepository) GetAllCartProducts(ctx context.Context, cartId int64) (productList []int64, err error) {
-	var GetProductsList = "SELECT product_id FROM cart_products p JOIN carts c ON  c.id = p.cart_id WHERE c.user_id = ?"
+func (r *orderRepository) GetAllCartProducts(ctx context.Context, userId int64) (productList []int64, err error) {
+	var GetProductList = "SELECT product_id FROM cart_products WHERE user_id = ?"
 
-	rows, err := r.database.Query(GetProductsList, cartId)
+	rows, err := r.database.Query(GetProductList, userId)
 	if err != nil {
 		return nil, err
 	}

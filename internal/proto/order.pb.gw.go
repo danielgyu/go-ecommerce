@@ -31,40 +31,6 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_OrderServcie_RegisterUserCart_0(ctx context.Context, marshaler runtime.Marshaler, client OrderServcieClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq RegisterUserCartRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.RegisterUserCart(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_OrderServcie_RegisterUserCart_0(ctx context.Context, marshaler runtime.Marshaler, server OrderServcieServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq RegisterUserCartRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.RegisterUserCart(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
 func request_OrderServcie_AddToCart_0(ctx context.Context, marshaler runtime.Marshaler, client OrderServcieClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddToCartRequest
 	var metadata runtime.ServerMetadata
@@ -190,29 +156,6 @@ func local_request_OrderServcie_HealthCheck_0(ctx context.Context, marshaler run
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterOrderServcieHandlerFromEndpoint instead.
 func RegisterOrderServcieHandlerServer(ctx context.Context, mux *runtime.ServeMux, server OrderServcieServer) error {
-
-	mux.Handle("POST", pattern_OrderServcie_RegisterUserCart_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.OrderServcie/RegisterUserCart", runtime.WithHTTPPathPattern("/proto.OrderServcie/RegisterUserCart"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_OrderServcie_RegisterUserCart_0(rctx, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_OrderServcie_RegisterUserCart_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
 
 	mux.Handle("POST", pattern_OrderServcie_AddToCart_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
@@ -347,26 +290,6 @@ func RegisterOrderServcieHandler(ctx context.Context, mux *runtime.ServeMux, con
 // "OrderServcieClient" to call the correct interceptors.
 func RegisterOrderServcieHandlerClient(ctx context.Context, mux *runtime.ServeMux, client OrderServcieClient) error {
 
-	mux.Handle("POST", pattern_OrderServcie_RegisterUserCart_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/proto.OrderServcie/RegisterUserCart", runtime.WithHTTPPathPattern("/proto.OrderServcie/RegisterUserCart"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_OrderServcie_RegisterUserCart_0(rctx, inboundMarshaler, client, req, pathParams)
-		ctx = runtime.NewServerMetadataContext(ctx, md)
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_OrderServcie_RegisterUserCart_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("POST", pattern_OrderServcie_AddToCart_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -451,8 +374,6 @@ func RegisterOrderServcieHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_OrderServcie_RegisterUserCart_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.OrderServcie", "RegisterUserCart"}, ""))
-
 	pattern_OrderServcie_AddToCart_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.OrderServcie", "AddToCart"}, ""))
 
 	pattern_OrderServcie_RemoveFromCart_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.OrderServcie", "RemoveFromCart"}, ""))
@@ -463,8 +384,6 @@ var (
 )
 
 var (
-	forward_OrderServcie_RegisterUserCart_0 = runtime.ForwardResponseMessage
-
 	forward_OrderServcie_AddToCart_0 = runtime.ForwardResponseMessage
 
 	forward_OrderServcie_RemoveFromCart_0 = runtime.ForwardResponseMessage

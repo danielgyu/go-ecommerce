@@ -1,10 +1,5 @@
-CREATE TABLE carts (
-    id INTEGER PRIMARY KEY NOT NULL,
-    user_id INTEGER NOT NULL
-);
-
 CREATE TABLE cart_products (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    cart_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
     product_id INTEGER NOT NULL
 );

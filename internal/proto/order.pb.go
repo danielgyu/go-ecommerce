@@ -21,100 +21,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type RegisterUserCartRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	UserId int64 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
-}
-
-func (x *RegisterUserCartRequest) Reset() {
-	*x = RegisterUserCartRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *RegisterUserCartRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RegisterUserCartRequest) ProtoMessage() {}
-
-func (x *RegisterUserCartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RegisterUserCartRequest.ProtoReflect.Descriptor instead.
-func (*RegisterUserCartRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *RegisterUserCartRequest) GetUserId() int64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
-}
-
-type RegisterUserCartResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Success bool `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-}
-
-func (x *RegisterUserCartResponse) Reset() {
-	*x = RegisterUserCartResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *RegisterUserCartResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RegisterUserCartResponse) ProtoMessage() {}
-
-func (x *RegisterUserCartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RegisterUserCartResponse.ProtoReflect.Descriptor instead.
-func (*RegisterUserCartResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *RegisterUserCartResponse) GetSuccess() bool {
-	if x != nil {
-		return x.Success
-	}
-	return false
-}
-
 type AddToCartRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -127,7 +33,7 @@ type AddToCartRequest struct {
 func (x *AddToCartRequest) Reset() {
 	*x = AddToCartRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[2]
+		mi := &file_internal_proto_order_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -140,7 +46,7 @@ func (x *AddToCartRequest) String() string {
 func (*AddToCartRequest) ProtoMessage() {}
 
 func (x *AddToCartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[2]
+	mi := &file_internal_proto_order_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -153,7 +59,7 @@ func (x *AddToCartRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddToCartRequest.ProtoReflect.Descriptor instead.
 func (*AddToCartRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{2}
+	return file_internal_proto_order_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *AddToCartRequest) GetUserId() int64 {
@@ -181,7 +87,7 @@ type AddToCartResponse struct {
 func (x *AddToCartResponse) Reset() {
 	*x = AddToCartResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[3]
+		mi := &file_internal_proto_order_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -194,7 +100,7 @@ func (x *AddToCartResponse) String() string {
 func (*AddToCartResponse) ProtoMessage() {}
 
 func (x *AddToCartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[3]
+	mi := &file_internal_proto_order_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -207,7 +113,7 @@ func (x *AddToCartResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddToCartResponse.ProtoReflect.Descriptor instead.
 func (*AddToCartResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{3}
+	return file_internal_proto_order_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *AddToCartResponse) GetAddedItems() int64 {
@@ -222,14 +128,14 @@ type RemoveFromCartRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	CartId    int64 `protobuf:"varint,1,opt,name=cartId,proto3" json:"cartId,omitempty"`
+	UserId    int64 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
 	ProductId int64 `protobuf:"varint,2,opt,name=productId,proto3" json:"productId,omitempty"`
 }
 
 func (x *RemoveFromCartRequest) Reset() {
 	*x = RemoveFromCartRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[4]
+		mi := &file_internal_proto_order_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -242,7 +148,7 @@ func (x *RemoveFromCartRequest) String() string {
 func (*RemoveFromCartRequest) ProtoMessage() {}
 
 func (x *RemoveFromCartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[4]
+	mi := &file_internal_proto_order_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -255,12 +161,12 @@ func (x *RemoveFromCartRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveFromCartRequest.ProtoReflect.Descriptor instead.
 func (*RemoveFromCartRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{4}
+	return file_internal_proto_order_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *RemoveFromCartRequest) GetCartId() int64 {
+func (x *RemoveFromCartRequest) GetUserId() int64 {
 	if x != nil {
-		return x.CartId
+		return x.UserId
 	}
 	return 0
 }
@@ -283,7 +189,7 @@ type RemoveFromCartResponse struct {
 func (x *RemoveFromCartResponse) Reset() {
 	*x = RemoveFromCartResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[5]
+		mi := &file_internal_proto_order_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -296,7 +202,7 @@ func (x *RemoveFromCartResponse) String() string {
 func (*RemoveFromCartResponse) ProtoMessage() {}
 
 func (x *RemoveFromCartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[5]
+	mi := &file_internal_proto_order_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -309,7 +215,7 @@ func (x *RemoveFromCartResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveFromCartResponse.ProtoReflect.Descriptor instead.
 func (*RemoveFromCartResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{5}
+	return file_internal_proto_order_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *RemoveFromCartResponse) GetDeleted() int64 {
@@ -330,7 +236,7 @@ type OrderInCartRequest struct {
 func (x *OrderInCartRequest) Reset() {
 	*x = OrderInCartRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[6]
+		mi := &file_internal_proto_order_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -343,7 +249,7 @@ func (x *OrderInCartRequest) String() string {
 func (*OrderInCartRequest) ProtoMessage() {}
 
 func (x *OrderInCartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[6]
+	mi := &file_internal_proto_order_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -356,7 +262,7 @@ func (x *OrderInCartRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderInCartRequest.ProtoReflect.Descriptor instead.
 func (*OrderInCartRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{6}
+	return file_internal_proto_order_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *OrderInCartRequest) GetUserId() int64 {
@@ -377,7 +283,7 @@ type OrderInCartResponse struct {
 func (x *OrderInCartResponse) Reset() {
 	*x = OrderInCartResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_proto_order_proto_msgTypes[7]
+		mi := &file_internal_proto_order_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -390,7 +296,7 @@ func (x *OrderInCartResponse) String() string {
 func (*OrderInCartResponse) ProtoMessage() {}
 
 func (x *OrderInCartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_order_proto_msgTypes[7]
+	mi := &file_internal_proto_order_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -403,7 +309,7 @@ func (x *OrderInCartResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderInCartResponse.ProtoReflect.Descriptor instead.
 func (*OrderInCartResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_order_proto_rawDescGZIP(), []int{7}
+	return file_internal_proto_order_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *OrderInCartResponse) GetProductIds() []int64 {
@@ -422,42 +328,30 @@ var file_internal_proto_order_proto_rawDesc = []byte{
 	0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x1a, 0x1c, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22,
-	0x31, 0x0a, 0x17, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x43,
-	0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73,
-	0x65, 0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72,
-	0x49, 0x64, 0x22, 0x34, 0x0a, 0x18, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73,
-	0x65, 0x72, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18,
-	0x0a, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52,
-	0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x22, 0x4a, 0x0a, 0x10, 0x41, 0x64, 0x64, 0x54,
-	0x6f, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06,
-	0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73,
-	0x65, 0x72, 0x49, 0x64, 0x12, 0x1e, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49,
-	0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x03, 0x52, 0x0a, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63,
-	0x74, 0x49, 0x64, 0x73, 0x22, 0x33, 0x0a, 0x11, 0x41, 0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72,
-	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x61, 0x64, 0x64,
-	0x65, 0x64, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x61,
-	0x64, 0x64, 0x65, 0x64, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x22, 0x4d, 0x0a, 0x15, 0x52, 0x65, 0x6d,
-	0x6f, 0x76, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x63, 0x61, 0x72, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x06, 0x63, 0x61, 0x72, 0x74, 0x49, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x70,
-	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x22, 0x32, 0x0a, 0x16, 0x52, 0x65, 0x6d, 0x6f,
-	0x76, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x03, 0x52, 0x07, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x22, 0x2c, 0x0a, 0x12,
-	0x4f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x6e, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x35, 0x0a, 0x13, 0x4f, 0x72,
-	0x64, 0x65, 0x72, 0x49, 0x6e, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x73, 0x18,
-	0x01, 0x20, 0x03, 0x28, 0x03, 0x52, 0x0a, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64,
-	0x73, 0x32, 0x9d, 0x03, 0x0a, 0x0c, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x63,
-	0x69, 0x65, 0x12, 0x55, 0x0a, 0x10, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73,
-	0x65, 0x72, 0x43, 0x61, 0x72, 0x74, 0x12, 0x1e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52,
-	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x43, 0x61, 0x72, 0x74, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52,
-	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x43, 0x61, 0x72, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x40, 0x0a, 0x09, 0x41, 0x64, 0x64,
+	0x4a, 0x0a, 0x10, 0x41, 0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1e, 0x0a, 0x0a, 0x70,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x03, 0x52,
+	0x0a, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x73, 0x22, 0x33, 0x0a, 0x11, 0x41,
+	0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x1e, 0x0a, 0x0a, 0x61, 0x64, 0x64, 0x65, 0x64, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x61, 0x64, 0x64, 0x65, 0x64, 0x49, 0x74, 0x65, 0x6d, 0x73,
+	0x22, 0x4d, 0x0a, 0x15, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x43, 0x61,
+	0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49,
+	0x64, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x22,
+	0x32, 0x0a, 0x16, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x43, 0x61, 0x72,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x64, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x64, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x64, 0x22, 0x2c, 0x0a, 0x12, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x6e, 0x43, 0x61,
+	0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49,
+	0x64, 0x22, 0x35, 0x0a, 0x13, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x6e, 0x43, 0x61, 0x72, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x49, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x03, 0x52, 0x0a, 0x70, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x64, 0x73, 0x32, 0xc6, 0x02, 0x0a, 0x0c, 0x4f, 0x72, 0x64,
+	0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x63, 0x69, 0x65, 0x12, 0x40, 0x0a, 0x09, 0x41, 0x64, 0x64,
 	0x54, 0x6f, 0x43, 0x61, 0x72, 0x74, 0x12, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x41,
 	0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
 	0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x41, 0x64, 0x64, 0x54, 0x6f, 0x43, 0x61, 0x72,
@@ -495,32 +389,28 @@ func file_internal_proto_order_proto_rawDescGZIP() []byte {
 	return file_internal_proto_order_proto_rawDescData
 }
 
-var file_internal_proto_order_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_internal_proto_order_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_internal_proto_order_proto_goTypes = []interface{}{
-	(*RegisterUserCartRequest)(nil),  // 0: proto.RegisterUserCartRequest
-	(*RegisterUserCartResponse)(nil), // 1: proto.RegisterUserCartResponse
-	(*AddToCartRequest)(nil),         // 2: proto.AddToCartRequest
-	(*AddToCartResponse)(nil),        // 3: proto.AddToCartResponse
-	(*RemoveFromCartRequest)(nil),    // 4: proto.RemoveFromCartRequest
-	(*RemoveFromCartResponse)(nil),   // 5: proto.RemoveFromCartResponse
-	(*OrderInCartRequest)(nil),       // 6: proto.OrderInCartRequest
-	(*OrderInCartResponse)(nil),      // 7: proto.OrderInCartResponse
-	(*HealthCheckRequest)(nil),       // 8: proto.HealthCheckRequest
-	(*HealthCheckResponse)(nil),      // 9: proto.HealthCheckResponse
+	(*AddToCartRequest)(nil),       // 0: proto.AddToCartRequest
+	(*AddToCartResponse)(nil),      // 1: proto.AddToCartResponse
+	(*RemoveFromCartRequest)(nil),  // 2: proto.RemoveFromCartRequest
+	(*RemoveFromCartResponse)(nil), // 3: proto.RemoveFromCartResponse
+	(*OrderInCartRequest)(nil),     // 4: proto.OrderInCartRequest
+	(*OrderInCartResponse)(nil),    // 5: proto.OrderInCartResponse
+	(*HealthCheckRequest)(nil),     // 6: proto.HealthCheckRequest
+	(*HealthCheckResponse)(nil),    // 7: proto.HealthCheckResponse
 }
 var file_internal_proto_order_proto_depIdxs = []int32{
-	0, // 0: proto.OrderServcie.RegisterUserCart:input_type -> proto.RegisterUserCartRequest
-	2, // 1: proto.OrderServcie.AddToCart:input_type -> proto.AddToCartRequest
-	4, // 2: proto.OrderServcie.RemoveFromCart:input_type -> proto.RemoveFromCartRequest
-	6, // 3: proto.OrderServcie.OrderInCart:input_type -> proto.OrderInCartRequest
-	8, // 4: proto.OrderServcie.HealthCheck:input_type -> proto.HealthCheckRequest
-	1, // 5: proto.OrderServcie.RegisterUserCart:output_type -> proto.RegisterUserCartResponse
-	3, // 6: proto.OrderServcie.AddToCart:output_type -> proto.AddToCartResponse
-	5, // 7: proto.OrderServcie.RemoveFromCart:output_type -> proto.RemoveFromCartResponse
-	7, // 8: proto.OrderServcie.OrderInCart:output_type -> proto.OrderInCartResponse
-	9, // 9: proto.OrderServcie.HealthCheck:output_type -> proto.HealthCheckResponse
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
+	0, // 0: proto.OrderServcie.AddToCart:input_type -> proto.AddToCartRequest
+	2, // 1: proto.OrderServcie.RemoveFromCart:input_type -> proto.RemoveFromCartRequest
+	4, // 2: proto.OrderServcie.OrderInCart:input_type -> proto.OrderInCartRequest
+	6, // 3: proto.OrderServcie.HealthCheck:input_type -> proto.HealthCheckRequest
+	1, // 4: proto.OrderServcie.AddToCart:output_type -> proto.AddToCartResponse
+	3, // 5: proto.OrderServcie.RemoveFromCart:output_type -> proto.RemoveFromCartResponse
+	5, // 6: proto.OrderServcie.OrderInCart:output_type -> proto.OrderInCartResponse
+	7, // 7: proto.OrderServcie.HealthCheck:output_type -> proto.HealthCheckResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -534,30 +424,6 @@ func file_internal_proto_order_proto_init() {
 	file_internal_proto_product_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_internal_proto_order_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterUserCartRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_internal_proto_order_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterUserCartResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_internal_proto_order_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddToCartRequest); i {
 			case 0:
 				return &v.state
@@ -569,7 +435,7 @@ func file_internal_proto_order_proto_init() {
 				return nil
 			}
 		}
-		file_internal_proto_order_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_internal_proto_order_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddToCartResponse); i {
 			case 0:
 				return &v.state
@@ -581,7 +447,7 @@ func file_internal_proto_order_proto_init() {
 				return nil
 			}
 		}
-		file_internal_proto_order_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_internal_proto_order_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RemoveFromCartRequest); i {
 			case 0:
 				return &v.state
@@ -593,7 +459,7 @@ func file_internal_proto_order_proto_init() {
 				return nil
 			}
 		}
-		file_internal_proto_order_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_internal_proto_order_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RemoveFromCartResponse); i {
 			case 0:
 				return &v.state
@@ -605,7 +471,7 @@ func file_internal_proto_order_proto_init() {
 				return nil
 			}
 		}
-		file_internal_proto_order_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_internal_proto_order_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderInCartRequest); i {
 			case 0:
 				return &v.state
@@ -617,7 +483,7 @@ func file_internal_proto_order_proto_init() {
 				return nil
 			}
 		}
-		file_internal_proto_order_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_internal_proto_order_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderInCartResponse); i {
 			case 0:
 				return &v.state
@@ -636,7 +502,7 @@ func file_internal_proto_order_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_internal_proto_order_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
